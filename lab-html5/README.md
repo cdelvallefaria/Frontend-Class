@@ -2,8 +2,8 @@
 LABORATORIO: ESTRUCTURA BÁSICA DE UNA PÁGINA WEB CON HTML5
 ==================================================
 
-Estudiante: Tu Nombre
-Curso: Desarrollo Web - Columbia Central University
+Estudiante: Carolina Del Valle Faria
+Curso: Frond end Technologies and user interface - Columbia Central University
 Módulo: 3
 Fecha: Noviembre 2026
 
