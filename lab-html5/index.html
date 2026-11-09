@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- SINTAXIS: etiquetas de apertura y cierre, atributos (lang, charset, href) y valores -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Llegó la Navidad!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Capa de nieve: los copos se crean con JavaScript al final de la página -->
+  <div id="nieve" aria-hidden="true"></div>
+
+  <!-- SEMÁNTICA: header, nav, main, section, article, aside y footer describen el significado del contenido -->
+  <header>
+    <h1>¡Llegó la Navidad!</h1>
+    <p class="lema">Luces, música y tradiciones para esta temporada</p>
+    <nav>
+      <ul>
+        <li><a href="#tradiciones">Tradiciones</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#musica">Música</a></li>
+        <li><a href="#arbol">Nuestro árbol</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tradiciones">
+      <h2>Tradiciones de Navidad</h2>
+      <article>
+        <h3>Las luces y el árbol</h3>
+        <p>Cada diciembre, las casas se llenan de luces de colores y el árbol se convierte en el centro de la celebración. Cada adorno guarda un recuerdo de la familia.</p>
+      </article>
+      <article>
+        <h3>La cena y la familia</h3>
+        <p>La Nochebuena es el momento de reunirse, compartir la mesa, agradecer el año y abrazar a quienes más queremos.</p>
+      </article>
+      <article>
+        <h3>Los regalos</h3>
+        <p>Más que el obsequio, lo que importa es el detalle y el cariño con el que se entrega.</p>
+      </article>
+    </section>
+
+    <section id="galeria">
+      <h2>Galería navideña</h2>
+      <!-- HTML5: figure y figcaption asocian la imagen con su descripción -->
+      <figure>
+        <img src="images-6.jpeg" alt="Decoración navideña" width="300">
+        <figcaption>Magia y decoración en cada rincón.</figcaption>
+      </figure>
+    </section>
+
+    <section id="musica">
+      <h2>Música y video</h2>
+      <!-- HTML5: video nativo, sin plugins como Flash -->
+      <video controls width="400">
+        <source src="video.mp4" type="video/mp4">
+        Tu navegador no soporta video.
+      </video>
+
+      <!-- HTML5: audio nativo con controles -->
+      <audio controls>
+        <source src="its-time-mariah-carey.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+      </audio>
+    </section>
+
+    <section id="arbol">
+      <h2>Nuestro árbol de Navidad</h2>
+      <!-- HTML5: canvas, lienzo para dibujar con JavaScript -->
+      <canvas id="lienzo" width="300" height="320">Tu navegador no soporta canvas.</canvas>
+    </section>
+  </main>
+
+  <aside>
+    <!-- Ventajas de HTML5 frente a HTML4: multimedia nativa sin plugins (Flash), mejor SEO, más accesible, código más limpio, funciona en móvil -->
+    <h2>Mensaje de Navidad</h2>
+    <p>Que esta Navidad te llene de paz, alegría y buenos momentos junto a tus seres queridos. ¡Feliz Navidad y próspero año nuevo!</p>
+  </aside>
+
+  <footer>
+    <p>&copy; 2026 Carolina Del Valle Faria</p>
+    <p>¡Felices fiestas!</p>
+  </footer>
+
+  <script>
+    // --- CANVAS: dibuja un árbol de Navidad ---
+    const ctx = document.getElementById("lienzo").getContext("2d");
+
+    // Tronco
+    ctx.fillStyle = "#6b3f1d";
+    ctx.fillRect(135, 260, 30, 45);
+
+    // Tres triángulos verdes
+    ctx.fillStyle = "#1e6b3a";
+    [[150, 90, 70, 150], [150, 135, 90, 205], [150, 185, 110, 265]].forEach(([x, top, mitad, base]) => {
+      ctx.beginPath();
+      ctx.moveTo(x, top);
+      ctx.lineTo(x - mitad, base);
+      ctx.lineTo(x + mitad, base);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // Bolas de colores
+    const bolas = [[130, 130, "#c1121f"], [172, 160, "#f2c14e"], [112, 200, "#f2c14e"],
+                   [160, 215, "#c1121f"], [195, 250, "#f2c14e"], [95, 250, "#c1121f"]];
+    bolas.forEach(([x, y, color]) => {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(x, y, 8, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Estrella dorada
+    ctx.fillStyle = "#f2c14e";
+    ctx.beginPath();
+    for (let i = 0; i < 10; i++) {
+      const radio = i % 2 === 0 ? 22 : 9;
+      const angulo = (Math.PI / 5) * i - Math.PI / 2;
+      ctx.lineTo(150 + radio * Math.cos(angulo), 68 + radio * Math.sin(angulo));
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // --- NIEVE: copos que caen (se desactiva si la persona prefiere menos movimiento) ---
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const nieve = document.getElementById("nieve");
+      for (let i = 0; i < 40; i++) {
+        const copo = document.createElement("span");
+        copo.className = "copo";
+        copo.style.left = Math.random() * 100 + "vw";
+        copo.style.width = copo.style.height = 3 + Math.random() * 6 + "px";
+        copo.style.animationDuration = 8 + Math.random() * 10 + "s";
+        copo.style.animationDelay = -Math.random() * 15 + "s";
+        nieve.appendChild(copo);
+      }
+    }
+  </script>
+</body>
+</html>
