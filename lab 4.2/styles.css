@@ -1,0 +1,342 @@
+/* ==========================================================
+   LABORATORIO DE CSS: Fotografía, primeros pasos
+   Contenido:
+   0. Variables (colores y tipografías)
+   1. Selectores de ELEMENTO (afectan a todas las etiquetas de ese tipo)
+   2. Selectores de ID (afectan a un solo elemento de la página)
+   3. Selectores de CLASE (reutilizables en muchos elementos)
+   4. MODELO DE CAJA: aparece en #dato-del-dia, .tarjeta y .seccion
+      (content, padding, border, margin) y en la regla box-sizing
+   5. DISEÑO RESPONSIVO (media queries, al final del archivo)
+   ========================================================== */
+
+
+/* ---------- 0. VARIABLES ----------
+   Se declaran una vez en :root y se usan con var(--nombre).
+   Si quieres cambiar un color de toda la página, lo cambias aquí. */
+:root {
+  --revelador: #1c2b33;  /* gris azulado oscuro, como el cuarto oscuro */
+  --papel:     #f2f3f5;  /* fondo general, como papel fotográfico */
+  --ambar:     #e8a33d;  /* luz de seguridad */
+  --rojo:      #b3261e;  /* acento */
+  --blanco:    #ffffff;
+
+  --fuente-titulos: "DM Serif Display", Georgia, serif;
+  --fuente-texto:   "DM Sans", system-ui, sans-serif;
+
+  /* Perforaciones de un rollo de película: círculos que se repiten.
+     Se usa como imagen de fondo en las tarjetas y en la portada. */
+  --perforaciones: radial-gradient(circle at center, var(--papel) 0 3px, transparent 3.5px);
+}
+
+
+/* ==========================================================
+   1. SELECTORES DE ELEMENTO
+   ========================================================== */
+
+/* Regla clave del modelo de caja: con border-box, el ancho (width)
+   incluye el padding y el borde. Así las cajas no se desbordan. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;                       /* quita el margen por defecto del navegador */
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--revelador);
+  background-color: var(--papel);
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(2.8rem, 9vw, 6rem); }    /* clamp(mínimo, ideal, máximo) */
+h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+h3 { font-size: 1.35rem; }
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; }
+
+ul, ol { margin: 0; padding: 0; }
+
+/* Enfoque visible para quien navega con teclado */
+a:focus-visible {
+  outline: 3px solid var(--ambar);
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================
+   2. SELECTORES DE ID  (un ID se usa una sola vez por página)
+   ========================================================== */
+
+#encabezado {
+  display: flex;                   /* coloca marca y menú en una fila */
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: var(--revelador);
+  color: var(--papel);
+}
+
+#portada {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  padding: 3rem 1.5rem 5rem;
+  background-color: var(--revelador);
+  color: var(--papel);
+}
+
+/* Tira de película en la parte baja de la portada */
+#portada::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--ambar);
+  background-image: var(--perforaciones);
+  background-size: 20px 100%;
+  background-repeat: repeat-x;
+}
+
+/* MODELO DE CAJA en acción: contenido + padding + borde + margen + sombra */
+#dato-del-dia {
+  padding: 1.5rem;                       /* espacio entre el contenido y el borde */
+  border: 4px solid var(--rojo);         /* el borde */
+  border-radius: 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0;        /* espacio por fuera de la caja */
+  background-color: var(--blanco);
+  color: var(--revelador);
+  box-shadow: 8px 8px 0 var(--ambar);    /* sombra dura, sin desenfoque */
+  align-self: start;
+}
+
+#dato-del-dia h2 {                       /* selector descendiente: h2 dentro de #dato-del-dia */
+  font-size: 1.4rem;
+}
+
+#dato-del-dia p:last-child {
+  margin-bottom: 0;
+}
+
+#pie {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background-color: var(--revelador);
+  color: var(--papel);
+}
+
+#pie p { margin: 0; }
+
+
+/* ==========================================================
+   3. SELECTORES DE CLASE  (reutilizables, se escriben con punto)
+   ========================================================== */
+
+.saltar {
+  position: absolute;
+  left: -999px;                    /* oculto hasta que recibe el foco */
+  background-color: var(--ambar);
+  color: var(--revelador);
+  padding: 0.5rem 1rem;
+}
+
+.saltar:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+}
+
+.marca {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-size: 1.3rem;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  list-style: none;
+}
+
+.menu a {
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.menu a:hover {
+  border-bottom-color: var(--ambar);
+}
+
+.portada__texto {
+  max-width: 40rem;                /* limita el largo de línea para leer mejor */
+}
+
+.introduccion {
+  font-size: 1.2rem;
+}
+
+.boton {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  background-color: var(--ambar);
+  color: var(--revelador);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0.4rem;
+  transition: background-color 0.2s;
+}
+
+.boton:hover {
+  background-color: var(--blanco);
+}
+
+/* Sección general: se reutiliza en "exposición" y en "composición" */
+.seccion {
+  max-width: 70rem;
+  margin: 0 auto;                  /* auto a los lados = caja centrada */
+  padding: 3rem 1.5rem;
+}
+
+.seccion__texto {
+  max-width: 40rem;
+  margin-bottom: 2rem;
+}
+
+/* Modificador: la misma clase base con otro aspecto */
+.seccion--clara {
+  max-width: none;                 /* ocupa todo el ancho para pintar el fondo completo */
+  background-color: var(--blanco);
+  padding-left: max(1.5rem, calc((100% - 70rem) / 2));
+  padding-right: max(1.5rem, calc((100% - 70rem) / 2));
+}
+
+/* Rejilla (CSS Grid): se adapta sola al ancho disponible */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.5rem;
+}
+
+/* ---------- Tarjeta: otro ejemplo completo del modelo de caja ----------
+   Parece un fotograma: borde oscuro y perforaciones arriba. */
+.tarjeta {
+  position: relative;
+  padding: 2.5rem 1.5rem 1.5rem;   /* más padding arriba para dejar sitio a la tira */
+  border: 2px solid var(--revelador);
+  border-radius: 0.5rem;
+  background-color: var(--blanco);
+  overflow: hidden;
+}
+
+.tarjeta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1rem;
+  background-color: var(--revelador);
+  background-image: var(--perforaciones);
+  background-size: 18px 100%;
+  background-repeat: repeat-x;
+}
+
+.tarjeta h3 {
+  margin-top: 0.75rem;
+}
+
+/* Valor típico del ajuste, escrito como en la cámara */
+.etiqueta {
+  display: inline-block;
+  padding: 0.15rem 0.7rem;
+  border-radius: 0.25rem;
+  background-color: var(--rojo);
+  color: var(--blanco);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* Lista de datos (dl) en dos columnas: nombre y valor */
+.tarjeta dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(28, 43, 51, 0.25);
+}
+
+.tarjeta dt { font-weight: 700; }
+.tarjeta dd { margin: 0; }
+
+/* Ideas de composición */
+.ideas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.ideas li {
+  padding: 1rem 1.25rem 0.5rem;
+  border-left: 6px solid var(--ambar);
+  background-color: var(--papel);
+}
+
+
+/* ==========================================================
+   5. DISEÑO RESPONSIVO
+   Se diseñó primero para móvil (una columna). Las reglas de abajo
+   mejoran la página cuando la pantalla es más ancha.
+   ========================================================== */
+
+/* Móviles pequeños: el encabezado pasa a una columna */
+@media (max-width: 520px) {
+  #encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #dato-del-dia {
+    box-shadow: 5px 5px 0 var(--ambar);
+  }
+
+  .tarjeta dl {
+    grid-template-columns: 1fr;    /* nombre y valor uno debajo del otro */
+  }
+}
+
+/* Tabletas y pantallas más grandes: portada en dos columnas */
+@media (min-width: 800px) {
+  #portada {
+    grid-template-columns: 1.6fr 1fr;
+    align-items: center;
+    padding: 5rem max(2rem, calc((100% - 70rem) / 2)) 6rem;
+  }
+
+  #encabezado {
+    padding-left: max(2rem, calc((100% - 70rem) / 2));
+    padding-right: max(2rem, calc((100% - 70rem) / 2));
+  }
+}
+
+/* Respeta a quien pidió menos animaciones en su sistema */
+@media (prefers-reduced-motion: reduce) {
+  .boton { transition: none; }
+}

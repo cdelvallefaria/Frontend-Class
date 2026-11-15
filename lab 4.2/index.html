@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Necesario para el diseño responsivo: hace que el móvil use su ancho real -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotografía: primeros pasos | Laboratorio de CSS</title>
+
+  <!-- Tipografías de Google Fonts (si no hay internet, se usan las de respaldo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos externa (método de inclusión recomendado) -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <!-- ESTRUCTURA SEMÁNTICA: header, nav, main, section, article, aside, footer -->
+  <header id="encabezado">
+    <p class="marca">Cuarto Oscuro</p>
+    <nav aria-label="Principal">
+      <ul class="menu">
+        <li><a href="#exposicion">Exposición</a></li>
+        <li><a href="#composicion">Composición</a></li>
+        <li><a href="#dato-del-dia">Dato del día</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido">
+
+    <section id="portada">
+      <div class="portada__texto">
+        <h1>Fotografía</h1>
+        <p class="introduccion">
+          Una fotografía es luz guardada en un sensor o en una película. Para controlarla
+          hacen falta tres ajustes en la cámara y unas pocas ideas para decidir qué
+          mostrar y cómo. Aquí está lo básico de ambas cosas.
+        </p>
+        <a class="boton" href="#exposicion">Empezar por la exposición</a>
+      </div>
+
+      <aside id="dato-del-dia">
+        <h2>Dato del día</h2>
+        <p>
+          La palabra fotografía viene del griego y significa "escribir con luz".
+        </p>
+      </aside>
+    </section>
+
+    <section id="exposicion" class="seccion">
+      <h2>Los tres controles de la exposición</h2>
+      <p class="seccion__texto">
+        La exposición es la cantidad de luz que llega al sensor. Se regula con tres
+        ajustes que trabajan juntos: si cambias uno, normalmente debes compensar con otro.
+      </p>
+
+      <div class="rejilla">
+
+        <article class="tarjeta">
+          <span class="etiqueta">f/1.8</span>
+          <h3>Apertura</h3>
+          <p>Es el tamaño del orificio por donde entra la luz al lente. Con un número f pequeño entra más luz y el fondo se ve desenfocado.</p>
+          <dl>
+            <dt>Se mide en</dt>
+            <dd>números f</dd>
+            <dt>Afecta a</dt>
+            <dd>la profundidad de campo</dd>
+          </dl>
+        </article>
+
+        <article class="tarjeta">
+          <span class="etiqueta">1/500 s</span>
+          <h3>Velocidad de obturación</h3>
+          <p>Es el tiempo que el obturador deja pasar la luz. Una velocidad alta congela el movimiento y una baja lo convierte en una estela.</p>
+          <dl>
+            <dt>Se mide en</dt>
+            <dd>fracciones de segundo</dd>
+            <dt>Afecta a</dt>
+            <dd>el movimiento</dd>
+          </dl>
+        </article>
+
+        <article class="tarjeta">
+          <span class="etiqueta">ISO 400</span>
+          <h3>ISO</h3>
+          <p>Es la sensibilidad del sensor a la luz. Un ISO alto sirve para fotografiar con poca luz, pero la imagen tiene más ruido.</p>
+          <dl>
+            <dt>Se mide en</dt>
+            <dd>valores ISO</dd>
+            <dt>Afecta a</dt>
+            <dd>el ruido de la imagen</dd>
+          </dl>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="composicion" class="seccion seccion--clara">
+      <h2>Tres ideas de composición</h2>
+      <ul class="ideas">
+        <li>
+          <h3>Regla de los tercios</h3>
+          <p>Divide el encuadre en tres partes iguales a lo ancho y a lo alto. Coloca el sujeto sobre una de las líneas o en un cruce, no en el centro.</p>
+        </li>
+        <li>
+          <h3>Líneas guía</h3>
+          <p>Caminos, cercas o bordes de edificios dirigen la mirada hacia el sujeto. Busca líneas que lleguen hasta él.</p>
+        </li>
+        <li>
+          <h3>Encuadre natural</h3>
+          <p>Una ventana, una puerta o unas ramas pueden servir de marco. Así el sujeto queda aislado y la imagen gana profundidad.</p>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer id="pie">
+    <p>Laboratorio 4.2, Front End. Autor: <strong>Carolina Del Valle Faría</strong></p>
+  </footer>
+
+</body>
+</html>
